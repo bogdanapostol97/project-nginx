@@ -17,11 +17,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       
-      # Vreau sa stiu care este work directory in caz ca imi trebuie
       - name: Print working directory
         run: pwd
-
-      # Ultima comanda salveaza imaginea intr-un tar
+        
       - name: Build & push docker image
         run: |
           
@@ -29,21 +27,17 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/project-nginx:${{ github.run_number }}
           docker save ${{ secrets.DOCKER_USERNAME }}/project-nginx:${{ github.run_number }} -o project-nginx.tar
  
-      # Instalez pe Runner AWS CLI Tools sa ma pot conecta apoi la contul de AWS
       - name: Install AWS CLI
         run: |
           sudo apt-get update && sudo apt-get install -y python3-pip
           pip3 install awscli --upgrade --user
       
-      # Configurez contul de AWS si ma conectez la el [ Pune regiunea pe care tu o folosesti ca default]
       - name: Configure AWS credentials
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region us-east-1 
 
-      
-      # Fac push la arhiva unde este imaginea mea in S3-ul meu
       - name: Push Docker image to AWS S3
         run: |
           aws s3 cp project-nginx.tar s3://project-bucket-softbinator/project-nginx.tar
@@ -53,26 +47,23 @@ jobs:
     needs: [build]
     steps:
 
-      # Instalez pe Runner AWS CLI Tools sa ma pot conecta apoi la contul de AWS
+
       - name: Install AWS CLI
         run: |
           sudo apt-get update && sudo apt-get install -y python3-pip
           pip3 install awscli --upgrade --user
       
-      # Configurez contul de AWS si ma conectez la el [ Pune regiunea pe care tu o folosesti ca default]
       - name: Configure AWS credentials
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region us-east-1 
 
-      # Download la imagine din S3 [acesta este un runner nou deci nu este srtat ca primul asa ca trebuie iar setat]
       - name: Download Docker image from AWS S3
         run: |
           aws s3 cp s3://project-bucket-softbinator/project-nginx.tar project-nginx.tar
           docker load -i project-nginx.tar
 
-      # Fa deploy folosind imaginea din S3
       - name: Start the docker container
         uses: appleboy/ssh-action@master
         with:
