@@ -82,7 +82,7 @@ jobs:
           port: 22
           script: |
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker container rm -f unruffled_levitt
+            docker container rm -f unruffled_leavitt
             docker run -d
             -p 80:80
             --name container-nginx-from-s3
