@@ -69,7 +69,7 @@ jobs:
       # Download la imagine din S3 [acesta este un runner nou deci nu este srtat ca primul asa ca trebuie iar setat]
       - name: Download Docker image from AWS S3
         run: |
-          aws s3 cp s3:/project-bucket-softbinator/project-nginx.tar project-nginx.tar
+          aws s3 cp s3://project-bucket-softbinator/project-nginx.tar project-nginx.tar
           docker load -i project-nginx.tar
 
       # Fa deploy folosind imaginea din S3
