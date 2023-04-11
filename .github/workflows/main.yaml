@@ -37,13 +37,11 @@ jobs:
       
       # Configurez contul de AWS si ma conectez la el [ Pune regiunea pe care tu o folosesti ca default]
       - name: Configure AWS credentials
-        env:
-        id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws configure set aws_access_key_id ${{ env.id }}
-          aws configure set aws_secret_access_key ${{ env.key }}
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region us-east-1 
+
       
       # Fac push la arhiva unde este imaginea mea in S3-ul meu
       - name: Push Docker image to AWS S3
