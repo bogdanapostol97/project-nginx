@@ -83,7 +83,7 @@ jobs:
           script: |
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker container rm -f unruffled_leavitt
-            docker run -d
-            -p 80:80
-            --name container-nginx-from-s3
-            --env Port=8080 project-bucket-softbinator/project-nginx:${{ github.run_number }}
+            docker run -d \
+            -p 80:80 \
+            --name container-nginx-from-s3 \
+            --env Port=80 project-bucket-softbinator/project-nginx:${{ github.run_number }}
