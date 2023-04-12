@@ -74,6 +74,8 @@ jobs:
           script: |
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             aws s3 cp s3://project-bucket-softbinator/project-nginx.tar project-nginx.tar
+            pwd
+            ls 
             docker load -i project-nginx.tar 
             docker image ls
             docker run -d \
