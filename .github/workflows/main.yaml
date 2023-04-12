@@ -80,4 +80,4 @@ jobs:
             docker run -d \
             -p 80:80 \
             --name container-nginx-from-s3 \
-            --env Port=80 project-nginx:16
+            --env Port=80 project-nginx:${{ github.run_number }}
