@@ -73,8 +73,10 @@ jobs:
           port: 22
           script: |
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker container rm -f unruffled_leavitt
+            aws s3 cp s3://project-bucket-softbinator/project-nginx.tar project-nginx.tar
+            docker load -i project-nginx.tar 
+            docker image ls
             docker run -d \
             -p 80:80 \
             --name container-nginx-from-s3 \
-            --env Port=80 project-bucket-softbinator/project-nginx.tar:${{ github.run_number }}
+            --env Port=80 project-nginx:${{ github.run_number }}
