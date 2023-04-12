@@ -77,4 +77,4 @@ jobs:
             docker run -d \
             -p 80:80 \
             --name container-nginx-from-s3 \
-            --env Port=80 project-bucket-softbinator/project-nginx:${{ github.run_number }}
+            --env Port=80 s3://project-bucket-softbinator/project-nginx.tar:${{ github.run_number }}
