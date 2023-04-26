@@ -33,7 +33,7 @@ jobs:
         with: 
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure: us-east-1 
+          aws-region: us-east-1 
       
       # folosim metoda asta ca ma loghez cu IAM role (adica sunt logat ca si IAM user si ma duc sa imi creez un IAM role si ii dau permisiuni)
       # - name: Configure AWS credentials
