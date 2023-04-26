@@ -1,12 +1,15 @@
 Project Documentation
 
 Overview
+
 This project is a web application that allows users to submit feedback or bug reports. The application consists of a front-end component built using HTML, CSS, and JavaScript thatallows users to submit their feedback or bug reports using a simple form. 
 
 Goal
+
 The ultimate goal of the project was to be able to create the CI/CD pipeline through which to deploy the HTML file used for the NGINX docker image to an S3 bucket and to be able to access it through the public IP of the EC2 instance on which the image is built.
 
 Deployment
+
 The application is deployed using a pipeline that consists of several steps:
 
 1. The code is checked out from the repository.
@@ -17,6 +20,7 @@ The application is deployed using a pipeline that consists of several steps:
 6. The pipeline is triggered automatically whenever changes are pushed to the main branch of the repository.
 
 Code explanation
+
 1. main.yaml - This is a GitHub Actions pipeline that deploys a Docker container to an Amazon S3 bucket and then deploys the container to an AWS EC2 Linux instance The pipeline is triggered by a push event to the main branch. 
 
 The pipeline consists of two jobs: build and deploy.
@@ -57,7 +61,9 @@ The "index" directive specifies the default file that NGINX should serve if a re
 So, when a user makes a request to this server on port 80 and the server_name matches "localhost", NGINX will look for an "index.html" file in the "/var/www/html" directory and serve it in response to the request.
 
 Improvements
+
 In the pipeline it would be useful to configure the credentials in AWS so that we use an IAM user that has an IAM role set in AWS. This method is more granular and gives admins the ability that when the pipeline owner leaves the organization to assign that role with those permissions to another user. For now the pipeline uses my user with its specific secrets. If I were to work in a company and leave that company, then the secrets would have to be changed and it would be more time consuming. 
 
 Conclusion
+
 This project is a simple web application that allows users to submit feedback or bug reports. The application is built using a modern tech stack and is deployed using a pipeline that ensures the highest level of quality and reliability.
