@@ -26,18 +26,22 @@ jobs:
           docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/project-nginx:${{ github.run_number }} .
           docker push ${{ secrets.DOCKER_USERNAME }}/project-nginx:${{ github.run_number }}
           docker save ${{ secrets.DOCKER_USERNAME }}/project-nginx:${{ github.run_number }} -o project-nginx.tar
- 
-      - name: Install AWS CLI
-        run: |
-          sudo apt-get update && sudo apt-get install -y python3-pip
-          pip3 install awscli --upgrade --user
       
+      # folosim metoda asta ca ma loghez ca IAM user 
       - name: Configure AWS credentials
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region us-east-1 
-
+        uses: aws-actions/configure-aws-credentials@v2
+        with: 
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure: us-east-1 
+      
+      # folosim metoda asta ca ma loghez cu IAM role (adica sunt logat ca si IAM user si ma duc sa imi creez un IAM role si ii dau permisiuni)
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v2
+      #  with:
+      #    role-to-assume: arn:aws:iam::<AWS-account-ID>:role/bogdan-github-actions-role-s3
+      #    aws-region: us-east-1
+      
       - name: Push Docker image to AWS S3
         run: |
           aws s3 cp project-nginx.tar s3://project-bucket-softbinator/project-nginx.tar
@@ -46,24 +50,6 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [build]
     steps:
-
-
-      - name: Install AWS CLI
-        run: |
-          sudo apt-get update && sudo apt-get install -y python3-pip
-          pip3 install awscli --upgrade --user
-      
-      - name: Configure AWS credentials
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region us-east-1 
-
-      - name: Download Docker image from AWS S3
-        run: |
-          aws s3 cp s3://project-bucket-softbinator/project-nginx.tar project-nginx.tar
-          docker load -i project-nginx.tar
-
       - name: Start the docker container
         uses: appleboy/ssh-action@master
         with:
