@@ -27,6 +27,11 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/project-nginx:${{ github.run_number }}
           docker save ${{ secrets.DOCKER_USERNAME }}/project-nginx:${{ github.run_number }} -o project-nginx.tar
       
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update && sudo apt-get install -y python3-pip
+          pip3 install awscli --upgrade --user
+      
       # folosim metoda asta ca ma loghez ca IAM user 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
