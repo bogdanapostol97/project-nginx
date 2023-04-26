@@ -16,7 +16,7 @@ The application is deployed using a pipeline that consists of several steps:
 5. The Docker container is started on the AWS EC2 instance and the application is deployed. We can access the application using https:
 6. The pipeline is triggered automatically whenever changes are pushed to the main branch of the repository.
 
-Code explanation:
+Code explanation
 1. main.yaml - This is a GitHub Actions pipeline that deploys a Docker container to an Amazon S3 bucket and then deploys the container to an AWS EC2 Linux instance The pipeline is triggered by a push event to the main branch. 
 
 The pipeline consists of two jobs: build and deploy.
