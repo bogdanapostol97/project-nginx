@@ -59,12 +59,6 @@ The application is deployed using a pipeline that consists of several steps:
 3. index.html - The HTML code that is a simple form that allows users to submit feedback or report issues. 
 4. nginx.conf - This is an example configuration for an NGINX server that listens on port 80 and serves requests for the server name "localhost". The server block contains a single location block that specifies how NGINX should handle requests for the root URL "/".
 
-The "root" directive specifies the location on the server's file system where NGINX should look for the files to serve in response to requests. In this case, the root is set to "/var/www/html", which means NGINX will look for files in the "/var/www/html" directory.
-
-The "index" directive specifies the default file that NGINX should serve if a request is made for a directory instead of a specific file. In this case, the default file is "index.html", which means that if a request is made for "/", NGINX will look for an "index.html" file in the root directory specified by the "root" directive.
-
-So, when a user makes a request to this server on port 80 and the server_name matches "localhost", NGINX will look for an "index.html" file in the "/var/www/html" directory and serve it in response to the request.
-
 <h2> Improvements </h2>
 
 In the pipeline it would be useful to configure the credentials in AWS so that we use an IAM user that has an IAM role set in AWS. This method is more granular and gives admins the ability that when the pipeline owner leaves the organization to assign that role with those permissions to another user. For now the pipeline uses my user with its specific secrets. If I were to work in a company and leave that company, then the secrets would have to be changed and it would be more time consuming. 
