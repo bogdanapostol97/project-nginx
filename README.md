@@ -1,14 +1,19 @@
-Project Documentation
+<h1> Project Documentation </h1> 
 
-Overview
+<h2> Overview </h2>
 
 This project is a web application that allows users to submit feedback or bug reports. The application consists of a front-end component built using HTML, CSS, and JavaScript thatallows users to submit their feedback or bug reports using a simple form. 
 
-Goal
-
 The ultimate goal of the project was to be able to create the CI/CD pipeline through which to deploy the HTML file used for the NGINX docker image to an S3 bucket and to be able to access it through the public IP of the EC2 instance on which the image is built.
 
-Deployment
+<h2> Tech Stack </h2> 
+
+- HTML, CSS, JavaScript
+- AWS EC2 Ubuntu
+- Docker
+- Github Actions for Pipelines
+
+<h2> Deployment </h2>
 
 The application is deployed using a pipeline that consists of several steps:
 
@@ -19,7 +24,7 @@ The application is deployed using a pipeline that consists of several steps:
 5. The Docker container is started on the AWS EC2 instance and the application is deployed. We can access the application using https:
 6. The pipeline is triggered automatically whenever changes are pushed to the main branch of the repository.
 
-Code explanation
+<h2> Code explanation </h2>
 
 1. main.yaml - This is a GitHub Actions pipeline that deploys a Docker container to an Amazon S3 bucket and then deploys the container to an AWS EC2 Linux instance The pipeline is triggered by a push event to the main branch. 
 
@@ -54,16 +59,16 @@ Code explanation
 3. index.html - The HTML code that is a simple form that allows users to submit feedback or report issues. 
 4. nginx.conf - This is an example configuration for an NGINX server that listens on port 80 and serves requests for the server name "localhost". The server block contains a single location block that specifies how NGINX should handle requests for the root URL "/".
 
-  - The "root" directive specifies the location on the server's file system where NGINX should look for the files to serve in response to requests. In this case, the root is set to "/var/www/html", which means NGINX will look for files in the "/var/www/html" directory.
-  - The "index" directive specifies the default file that NGINX should serve if a request is made for a directory instead of a specific file. In this case, the default file is "index.html", which means that if a request is made for "/", NGINX will look for an "index.html" file in the root directory specified by the "root" directive.
-  - So, when a user makes a request to this server on port 80 and the server_name matches "localhost", NGINX will look for an "index.html" file in the "/var/www/html" directory and serve it in response to the request.
+The "root" directive specifies the location on the server's file system where NGINX should look for the files to serve in response to requests. In this case, the root is set to "/var/www/html", which means NGINX will look for files in the "/var/www/html" directory.
 
-Improvements
+The "index" directive specifies the default file that NGINX should serve if a request is made for a directory instead of a specific file. In this case, the default file is "index.html", which means that if a request is made for "/", NGINX will look for an "index.html" file in the root directory specified by the "root" directive.
 
-  - In the pipeline it would be useful to configure the credentials in AWS so that we use an IAM user that has an IAM role set in AWS. 
-  - This method is more granular and gives admins the ability that when the pipeline owner leaves the organization to assign that role with those permissions to another user. For now the pipeline uses my user with its specific secrets.
-  - If I were to work in a company and leave that company, then the secrets would have to be changed and it would be more time consuming. 
+So, when a user makes a request to this server on port 80 and the server_name matches "localhost", NGINX will look for an "index.html" file in the "/var/www/html" directory and serve it in response to the request.
 
-Conclusion
+<h2> Improvements </h2>
 
-  This project is a simple web application that allows users to submit feedback or bug reports. The application is built using a modern tech stack and is deployed using a pipeline that ensures the highest level of quality and reliability.
+In the pipeline it would be useful to configure the credentials in AWS so that we use an IAM user that has an IAM role set in AWS. This method is more granular and gives admins the ability that when the pipeline owner leaves the organization to assign that role with those permissions to another user. For now the pipeline uses my user with its specific secrets. If I were to work in a company and leave that company, then the secrets would have to be changed and it would be more time consuming. 
+
+<h2> Conclusion </h2>
+
+This project is a simple web application that allows users to submit feedback or bug reports. The application is built using a modern tech stack and is deployed using a pipeline that ensures the highest level of quality and reliability.
