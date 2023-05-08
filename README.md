@@ -30,24 +30,24 @@ The application is deployed using the following pipeline steps:
 1. main.yaml: This GitHub Actions pipeline deploys a Docker container to an Amazon S3 bucket and then to an AWS EC2 Linux instance. It consists of two jobs: build and deploy.
 
   - The build job:
-    a. Checks out the source code.
-    b. Logs in to Docker Hub.
-    c. Builds and pushes the Docker image.
-    d. Configures AWS credentials.
-    e. Uploads the Docker image to an S3 bucket.
+    - Checks out the source code.
+    - Logs in to Docker Hub.
+    - Builds and pushes the Docker image.
+    - Configures AWS credentials.
+    - Uploads the Docker image to an S3 bucket.
    
   - The deploy job:
-    a. Starts the Docker container on the specified server.
-    b. Removes existing containers with the same name.
-    c. Downloads and loads the Docker image.
-    d. Starts a Docker container with port mapping and environment variable setup.
+    - Starts the Docker container on the specified server.
+    - Removes existing containers with the same name.
+    - Downloads and loads the Docker image.
+    - Starts a Docker container with port mapping and environment variable setup.
 
 2. Dockerfile: Instructions to build the Docker image for the application.
-    a. Uses the latest Ubuntu image.
-    b. Sets the working directory.
-    c. Updates packages and installs Nginx.
-    d. Copies Nginx configuration and HTML template files.
-    e. Exposes port 80 and specifies the command to start Nginx.
+    - Uses the latest Ubuntu image.
+    - Sets the working directory.
+    - Updates packages and installs Nginx.
+    - Copies Nginx configuration and HTML template files.
+    - Exposes port 80 and specifies the command to start Nginx.
 
 3. index.html: HTML code for the feedback form.
 4. nginx.conf: Example configuration for an NGINX server.
