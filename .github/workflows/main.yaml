@@ -58,10 +58,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
-            # docker stop container-nginx-from-s3
-            # docker container rm container-nginx-from-s3
+            docker stop container-nginx-from-s3
+            docker container rm container-nginx-from-s3
             aws s3 cp s3://project-bucket-softbinator/project-nginx.tar project-nginx.tar
             docker load -i project-nginx.tar 
             # docker tag  bogdanapostol97/project-nginx:16 project-nginx:16  
             docker image ls
-            docker run -d -p 80:80 --name container-nginx-from-s3 --env Port=80 bogdanapostol97/project-nginx:17
+            docker run -d -p 80:80 --name container-nginx-from-s3 --env Port=80 bogdanapostol97/project-nginx:tag
