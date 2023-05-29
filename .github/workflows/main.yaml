@@ -64,4 +64,4 @@ jobs:
             docker load -i project-nginx.tar 
             # docker tag  bogdanapostol97/project-nginx:16 project-nginx:16  
             docker image ls
-            docker run -d -p 80:80 --name container-nginx-from-s3 --env Port=80 bogdanapostol97/project-nginx:33
+            docker run -d -p 80:80 --name container-nginx-from-s3 --env Port=80 bogdanapostol97/project-nginx:17
